@@ -1,9 +1,15 @@
 import "./new.scss"
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
 
 const New = () => {
     return (
         <div>
-            <h1 className="new">New</h1>
+            <div className="new">
+            <Sidebar />
+            <div className="newContainer"></div>
+            <Navbar />
+            </div>
         </div>
     );
 }
