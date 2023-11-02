@@ -1,7 +1,7 @@
-import "./featured.scss";
-import "react-circular-progressbar/dist/styles.css"
+import './featured.scss';
+import 'react-circular-progressbar/dist/styles.css';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbar } from 'react-circular-progressbar';
 
 const Featured = () => {
     return (
