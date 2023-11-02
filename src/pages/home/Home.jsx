@@ -1,10 +1,10 @@
-import "./home.scss"
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
-import Widget from "../../components/widget/Widget";
-import Chart from "../../components/chart/Chart";
-import Featured from "../../components/featured/Featured";
-import DataTable from "../../components/datatable/DataTable";
+import './home.scss';
+import Sidebar from '../../components/sidebar/Sidebar';
+import Navbar from '../../components/navbar/Navbar';
+import Widget from '../../components/widget/Widget';
+import Chart from '../../components/chart/Chart';
+import Featured from '../../components/featured/Featured';
+import List from '../../components/table/Table';
 
 const Home = () => {
     return (
@@ -26,7 +26,7 @@ const Home = () => {
                     <div className="listTitle">
                         Latest Transactions
                     </div>
-                    <DataTable />
+                    <List />
                 </div>
             </div>
         </div>
