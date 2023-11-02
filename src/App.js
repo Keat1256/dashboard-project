@@ -7,6 +7,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate
 } from 'react-router-dom';
 import './style/dark.scss';
 import { useContext } from 'react';
@@ -19,17 +20,17 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route index element={<Home />} />
             <Route path="users">
-              <Route index element={<List/>} />
-              <Route path=":userId" element={<Single/>} />
-              <Route path="new" element={<New/>} />
+              <Route index element={<List />} />
+              <Route path=":userId" element={<Single />} />
+              <Route path="new" element={<New />} />
             </Route>
             <Route path="products">
-              <Route index element={<List/>} />
-              <Route path=":productId" element={<Single/>} />
-              <Route path="new" element={<New/>} />
+              <Route index element={<List />} />
+              <Route path=":productId" element={<Single />} />
+              <Route path="new" element={<New />} />
             </Route>
           </Route>
         </Routes>
