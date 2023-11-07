@@ -26,36 +26,43 @@ function App() {
   const { currentUser } = useContext(AuthContext)
   const [userRole, setUserRole] = useState(null);
 
-  const auth = getAuth();
-  const [uid, setUid] = useState();
   const RequireAuth = ({ children }) => {
     return currentUser ? children : <Navigate to="/login" />;
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUid(user.uid);
-    } else {
-      console.log("user not logged in");
-      return
-    }
-  });
+  const auth = getAuth();
+  const [uid, setUid] = useState();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUid(user.uid);
+      } else {
+        console.log("user not logged in");
+        // Handle user not logged in
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup the subscription
+  }, []);
 
   useEffect(() => {
     const fetchUserRole = async () => {
       if (uid) {
         const docRef = doc(db, "users", uid);
-        const docSnap = await getDoc(docRef);
-        const userData = docSnap.data();
-        setUserRole(userData.role);
-        // if (docSnap.exists()) {
-        //   const userData = docSnap.data();
-        //   setUserRole(userData.role); // Store the fetched data in state
-        // } else {
-        //   // Handle the case where the document doesn't exist
-        // }
+        try {
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            setUserRole(userData.role);
+          } else {
+            // Handle the case where the document doesn't exist
+          }
+        } catch (error) {
+          console.error("Error fetching user role:", error);
+          // Handle the error
+        }
       } else {
-
         // The user is not logged in, so do nothing
       }
     };
@@ -79,6 +86,7 @@ function App() {
                 <RoleAuth userRole={userRole} allowedRole="super_admin">
                   <List />
                 </RoleAuth>
+                // <List />
               } />
               <Route path=":userId" element={
                 <Single />
