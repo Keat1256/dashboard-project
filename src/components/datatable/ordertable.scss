@@ -1,8 +1,8 @@
-.datatable {
+.ordertable {
     height: 600px;
     padding: 20px;
 
-    .datatableTitle {
+    .tableTitle {
         width: 100%;
         font-size: 24px;
         color: gray;
@@ -76,5 +76,14 @@
             border: 1px dotted rgba(220, 20, 60, 0.6);
             cursor: pointer;
         }
+
+        .editButton {
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: #ff7b00;
+            border: 1px dotted rgba(220, 20, 60, 0.6);
+            cursor: pointer;
+        }
+
     }
 }

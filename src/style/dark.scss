@@ -52,10 +52,20 @@
             color: gray;
             border: none;
 
-            .viewButton,
-            .deleteButton,
+            .viewButton{
+                color: rgb(8, 218, 255);
+                border: none;
+            }
+            .deleteButton{
+                color: red;
+                border: none;
+            }
+            .editButton{
+                color: #ff7b00;
+                border: none;
+            }
             .cellWithStatus {
-                color: gray;
+                color: green;
                 border: none;
             }
         }
@@ -63,5 +73,14 @@
 
     input {
         background-color: transparent;
+    }
+
+    .login{
+         form{
+             input{
+                 border-color: gray;
+                 color: white;
+             }
+         }
     }
 }

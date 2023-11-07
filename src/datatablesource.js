@@ -1,44 +1,70 @@
-export const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, status: 'active'},
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', status: 'pending', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', status: 'disabled', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+import profileIcon from "../src/images/pfpicon.png";
 
-export const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
+export const userColumns = [
     {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 90,
+        field: "id",
+        headerName: "ID",
+        width: 70
     },
     {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
-    {
-        field: "status",
-        headerName: "Status",
-        width: 160,
+        field: "user",
+        headerName: "User Name",
+        width: 200,
         renderCell: (params) => {
             return (
-                <div className={`cellWithStatus ${params.row.status}`}>
-                    {params.row.status}
+                <div className="cellWithImg">
+                    <img className="cellImg" src={params.row.img ? params.row.img : profileIcon} alt="avatar" />
+                    {params.row.username}
                 </div>
             );
         },
     },
+    {
+        field: "email",
+        headerName: "Email",
+        width: 200,
+    },
+    {
+        field: "displayName",
+        headerName: "Full Name",
+        width: 100,
+    },
+    {
+        field: "address",
+        headerName: "Address",
+        width: 250,
+    },
 ];
+
+export const productColumns = [
+    {
+        field: "id",
+        headerName: "ID",
+        width: 100
+    },
+    {
+        field: "title",
+        headerName: "Product Name",
+        width: 150,
+    },
+    {
+        field: "price",
+        headerName: "Product Price",
+        width: 150,
+    },
+    {
+        field: "quantity",
+        headerName: "Total Quantity",
+        width: 150,
+    },
+    {
+        field: "inv",
+        headerName: "Product Inventory",
+        width: 150,
+    },
+    {
+        field: "status",
+        headerName: "Product Status",
+        width: 150,
+    }
+]

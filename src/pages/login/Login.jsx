@@ -34,6 +34,7 @@ const Login = () => {
     <div className="login">
       <div>
         <img src={logoImage} alt="Logo" className="logo" />
+
         <form onSubmit={handleLogin}>
           <input
             type="email"

@@ -1,4 +1,4 @@
-.login{
+.login {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -24,7 +24,8 @@
             margin: 10px;
             border: 1px solid #ccc;
             padding: 5px;
-            font-size: 16px;
+            font-size: 12px;
+            border-radius: 15px;
         }
 
         button {
@@ -45,4 +46,3 @@
         }
     }
 }
-
