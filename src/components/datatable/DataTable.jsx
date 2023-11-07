@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 
-const Datatable = () => {
+const DataTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -84,4 +84,4 @@ const Datatable = () => {
   );
 };
 
-export default Datatable;
+export default DataTable;
