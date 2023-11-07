@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { columns, rows } from '../../datatablesource';
 import { useState } from 'react';
 
-const Datatable = () => {
+const DataTable = () => {
     const [data,setData] = useState(rows)
 
     const handleDelete = (id)=>{
@@ -45,4 +45,4 @@ const Datatable = () => {
     )
 }
 
-export default Datatable
+export default DataTable
