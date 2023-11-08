@@ -8,6 +8,8 @@ import ShowChartIcon from "@mui/icons-material/ShowChart";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Widget = ({ type }) => {
   const [amount, setAmount] = useState(null);
@@ -26,9 +28,9 @@ const Widget = ({ type }) => {
       break;
     case "orders":
       data = {
-        title: "ORDER",
+        title: "PRODUCT LISTED",
         isMoney: false,
-        link: "See all orders",
+        link: "See all products",
         query: "products",
         icon: <ShoppingCartIcon className="icon negative" />,
       };
@@ -37,7 +39,7 @@ const Widget = ({ type }) => {
       data = {
         title: "EARNING",
         isMoney: true,
-        link: "See all earnings",
+        link: false,
         query: "orders",
         icon: <MonetizationOnIcon className="icon" />,
       };
@@ -125,7 +127,9 @@ const Widget = ({ type }) => {
         <span className="counter">
           {data.isMoney && "$"} {amount}
         </span>
-        <span className="link">{data.link}</span>
+        <Link to={`/${data.query}`}>
+          <span className="link">See all {data.link}</span>
+        </Link>
       </div>
       <div className="right">
         <div className={`percentage ${diff < 0 ? "negative" : "positive"}`}>
