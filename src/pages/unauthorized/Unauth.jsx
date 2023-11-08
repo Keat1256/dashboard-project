@@ -7,11 +7,15 @@ import { toast } from "react-toastify";
 
 const Unauthorized = () => {
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       toast.error("You do not have the authorization to access.", {
-        autoClose: 5000, // 3 seconds
+        autoClose: 5000,
       });
-    }, 3000); // Show toast after 3 seconds
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer); // Clear the timer when the component unmounts
+    };
   }, []);
 
   return (
@@ -21,7 +25,6 @@ const Unauthorized = () => {
         <div className="unAuthContainer">
           <Navbar />
           <Link to="/">Home</Link>
-
         </div>
       </h1>
     </div>
