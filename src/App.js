@@ -1,3 +1,4 @@
+import './style/dark.scss';
 import { useContext, useEffect, useState } from 'react';
 import {
   BrowserRouter,
@@ -21,7 +22,10 @@ import EditUser from './pages/edituser/EditUser';
 import Login from './pages/login/Login';
 import Order from './pages/order/Order';
 import Product from './pages/product/Product';
-import './style/dark.scss';
+import AddForm from './pages/addform/AddForm';
+import Inventory from './pages/inventory/Inventory';
+import EditProduct from './pages/editproduct/EditProduct';
+import EditOrder from './pages/editorder/EditOrder';
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -81,24 +85,32 @@ function App() {
             <Route index element={
               <RequireAuth>
                 <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
-                <Home />
+                  <Home />
                 </RoleAuth>
               </RequireAuth>
             } />
             <Route path="users">
               <Route index element={
-                <RoleAuth userRole={userRole} allowedRoles="super_admin">
-                  <List />
-                </RoleAuth>
+                <RequireAuth>
+                  <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
+                    <List />
+                  </RoleAuth>
+                </RequireAuth>
               } />
-              <Route path=":userId" element={
-                <Single />
+              <Route path=":userId" component={Single} element={
+                <RequireAuth>
+                  <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
+                    <Single />
+                  </RoleAuth>
+                </RequireAuth>
               } />
               <Route
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={userInputs} title="Create New User" />
+                    <RoleAuth userRole={userRole} allowedRoles={["super_admin"]}>
+                      <New inputs={userInputs} title="Create New User" collectionName="users" />
+                    </RoleAuth>
                   </RequireAuth>
                 }
               />
@@ -106,22 +118,48 @@ function App() {
                 path="edit/:userId"
                 element={
                   <RequireAuth>
-                    <EditUser inputs={userUpdate} title="Update User"/>
+                    <RoleAuth userRole={userRole} allowedRoles={["super_admin"]}>
+                      <EditUser inputs={userUpdate} title="Update User" />
+                    </RoleAuth>
                   </RequireAuth>
                 }
               />
             </Route>
+            <Route path="products">
+              <Route index element={
+                <RequireAuth>
+                  <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
+                    <Product />
+                  </RoleAuth>
+                </RequireAuth>
+              } />
+            </Route>
             <Route
-              path=":userId"
-              component={Single}
+              path="product/new"
               element={
                 <RequireAuth>
-                  <Single />
+                  <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
+                    <AddForm inputs={productInputs} title="Create New Product" collectionName="products/" />
+                  </RoleAuth>
                 </RequireAuth>
               }
             />
-            <Route path="products">
-              <Route index element={<Product />} />
+            <Route path="product/edit/:paramId" element={
+              <RequireAuth>
+                <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
+                  <EditProduct />
+                </RoleAuth>
+              </RequireAuth>
+            } />
+            <Route path="order/edit/:paramId" element={
+              <RequireAuth>
+                <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
+                  <EditOrder />
+                </RoleAuth>
+              </RequireAuth>
+            } />
+            <Route path="inventory">
+              <Route index element={<Inventory />} />
             </Route>
             <Route path="orders">
               <Route index element={<Order />} />
