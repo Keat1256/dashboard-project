@@ -1,28 +1,33 @@
 import profileIcon from "../src/images/pfpicon.png";
 
+const smallScreenQuery = window.matchMedia("(max-width: 1080px)");
+
 export const userColumns = [
     {
         field: "id",
         headerName: "ID",
-        width: 70
+        width: 150,
     },
     {
         field: "img",
-        headerName: "Image",
-        width: 100,
+        headerName: "",
+        width: smallScreenQuery.matches ? 0 : 15, // 0% on small screens, 15% on larger screens
         renderCell: (params) => {
             return (
                 <div className="cellWithImg">
-                    <img className="cellImg" src={params.row.img ? params.row.img : profileIcon} alt="avatar" />
+                    {smallScreenQuery.matches ? null : (
+                        <img className="cellImg" src={params.row.img ? params.row.img : profileIcon} alt="avatar" />
+                    )}
                 </div>
             );
         },
     },
+    // Add other columns with adjusted widths
     {
         field: "username",
         headerName: "User Name",
         width: 200,
-        
+
 
     },
     {
@@ -46,7 +51,7 @@ export const productColumns = [
     {
         field: "id",
         headerName: "ID",
-        width: 100
+        width: 100,
     },
     {
         field: "img",
@@ -70,27 +75,27 @@ export const productColumns = [
     {
         field: "price",
         headerName: "Product Price",
-        width: 150,
+        width: 100,
     },
     {
         field: "quantity",
         headerName: "Total Quantity",
-        width: 150,
+        width: 100,
     },
     {
         field: "wh1qty",
-        headerName: "Warehouse 1 Quantity",
-        width: 150,
+        headerName: "WH1 Quantity",
+        width: 100,
     },
     {
         field: "wh2qty",
-        headerName: "Warehouse 2 Quantity",
-        width: 150,
+        headerName: "WH2 Quantity",
+        width: 100,
     },
     {
         field: "wh3qty",
-        headerName: "Warehouse 3 Quantity",
-        width: 150,
+        headerName: "WH3 Quantity",
+        width: 100,
     },
     {
         field: "status",
@@ -128,12 +133,12 @@ export const orderColumns = [
     {
         field: "selectedWarehouse",
         headerName: "Warehouse",
-        width: 150,
+        width: 120,
     },
     {
         field: "userId",
         headerName: "Customer ID",
-        width: 250,
+        width: 100,
     },
     {
         field: "timeStamp",
