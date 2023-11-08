@@ -4,6 +4,7 @@ import { orderColumns } from "../../datatablesource";
 import { useEffect, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
+import { Link } from "react-router-dom";
 
 const OrderTable = () => {
   const [data, setData] = useState([]);
@@ -55,7 +56,12 @@ const OrderTable = () => {
             >
               Delete
             </div>
-            <div className="editButton">Edit</div>
+            <Link
+              to={`/order/edit/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="editButton">Edit</div>
+            </Link>
           </div>
         );
       },
@@ -79,7 +85,9 @@ const OrderTable = () => {
 
   return (
     <div className="datatable">
-      <div className="tableTitle">Order List</div>
+      <div className="tableTitle">
+        Order List
+      </div>
       <DataGrid
         className="datagrid"
         rows={data}

@@ -51,18 +51,18 @@ const ProductTable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link
-              to={`/products/${params.row.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <button className="viewButton">View</button>
-            </Link>
-            <button
+            <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
               Delete
-            </button>
+            </div>
+            <Link
+              to={`/product/edit/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="editButton">Edit</div>
+            </Link>
           </div>
         );
       },
@@ -73,9 +73,9 @@ const ProductTable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         Product List
-        {/* <Link to="/users/new" className="link">
+        <Link to="/product/new" className="link">
           Add New
-        </Link> */}
+        </Link>
       </div>
       <DataGrid
         className="datagrid"

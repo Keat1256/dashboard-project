@@ -18,6 +18,11 @@ const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
   const { dispatch: authDispatch } = useContext(AuthContext);
 
+  const { currentUser } = useContext(AuthContext);
+
+  // Assuming currentUser includes a field like 'uid' for the user's ID
+  const currentUserID = currentUser ? currentUser.uid : null;
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -43,10 +48,10 @@ const Sidebar = () => {
             </li>
           </Link>
           <Link to="/products" style={{ textDecoration: "none" }}>
-          <li>
-            <CategoryIcon className="icon" />
-            <span>Products</span>
-          </li>
+            <li>
+              <CategoryIcon className="icon" />
+              <span>Products</span>
+            </li>
           </Link>
           <Link to="/orders" style={{ textDecoration: "none" }}>
             <li>
@@ -54,13 +59,13 @@ const Sidebar = () => {
               <span>Orders</span>
             </li>
           </Link>
-          <Link to="/inventory" style={{ textDecoration: "none" }}>
+          {/* <Link to="/inventory" style={{ textDecoration: "none" }}>
           <li>
             <InventoryIcon className="icon" />
             <span>Inventory</span>
           </li>
-          </Link>
-          <p className="title">DATA</p>
+          </Link> */}
+          {/* <p className="title">DATA</p>
           <li>
             <QueryStatsIcon className="icon" />
             <span>Status</span>
@@ -68,17 +73,22 @@ const Sidebar = () => {
           <li>
             <AssessmentIcon className="icon" />
             <span>Report</span>
-          </li>
+          </li> */}
           <p className="title">USER</p>
-          <li>
-            <AccountBoxIcon className="icon" />
-            <span>Profile</span>
-          </li>
+          <Link
+            to={`/users/${currentUserID}`}
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <AccountBoxIcon className="icon" />
+              <span>Profile</span>
+            </li>
+          </Link>
           <Link to="/login" style={{ textDecoration: "none" }}>
-          <li onClick={() => authDispatch({ type: "LOGOUT" })}>
-            <LogoutIcon className="icon" />
-            <span>Logout</span>
-          </li>
+            <li onClick={() => authDispatch({ type: "LOGOUT" })}>
+              <LogoutIcon className="icon" />
+              <span>Logout</span>
+            </li>
           </Link>
         </ul>
       </div>
