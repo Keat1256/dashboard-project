@@ -54,10 +54,12 @@ const Sidebar = () => {
               <span>Orders</span>
             </li>
           </Link>
+          <Link to="/inventory" style={{ textDecoration: "none" }}>
           <li>
             <InventoryIcon className="icon" />
             <span>Inventory</span>
           </li>
+          </Link>
           <p className="title">DATA</p>
           <li>
             <QueryStatsIcon className="icon" />
@@ -72,10 +74,12 @@ const Sidebar = () => {
             <AccountBoxIcon className="icon" />
             <span>Profile</span>
           </li>
+          <Link to="/login" style={{ textDecoration: "none" }}>
           <li onClick={() => authDispatch({ type: "LOGOUT" })}>
             <LogoutIcon className="icon" />
             <span>Logout</span>
           </li>
+          </Link>
         </ul>
       </div>
       <div className="bottom">
