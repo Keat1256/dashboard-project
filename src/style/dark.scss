@@ -91,11 +91,28 @@
             .newContainer {
                 flex: 6;
 
+                .goBack {
+                        background-color: #007bff;
+                        color: white;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        border: none;
+                        cursor: pointer;
+                        position: absolute;
+                        right: 25px;
+                        top: 55px;
+                        /* Adjust this value as needed */
+
+                        &:hover {
+                            background-color: #0069d9;
+                        }
+                    }
+
                 .top,
                 .bottom {
                     -webkit-box-shadow: 2px 4px 10px 1px rgba(255, 255, 255, 0.47);
                     box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-                    padding: 20px;
+                    padding: 10px;
                     margin: 20px;
                     display: flex;
 
@@ -114,6 +131,13 @@
                             border-radius: 50%;
                             object-fit: cover;
                         }
+
+                        .edit-img {
+                            // Increase specificity here
+                            width: 350px;
+                            height: auto;
+                            object-fit: cover;
+                        }
                     }
 
                     .right {
@@ -122,7 +146,7 @@
                         form {
                             display: flex;
                             flex-wrap: wrap;
-                            gap: 30px;
+                            gap: 40px;
                             justify-content: space-around;
 
                             .formInput {
@@ -154,9 +178,9 @@
                                     width: 100%;
                                     padding: 5px;
                                     border-bottom: 1px solid gray;
-                                    background-color: #222;
+                                    background-color: #242222;
                                     /* Dark background color */
-                                    color: #fff;
+                                    color: #ffffff;
                                     /* White text color */
                                 }
                             }
