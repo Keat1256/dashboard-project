@@ -4,14 +4,14 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import profileIcon from "../../images/pfpicon.png";
 
 const Single = () => {
    const { userId } = useParams();
-
+   const navigate = useNavigate();
    const [userData, setUserData] = useState(null);
 
    useEffect(() => {
@@ -29,18 +29,31 @@ const Single = () => {
      fetchUserData();
    }, [userId]);
 
+
+  const goBack = () => {
+    navigate(-1); // This will navigate back to the previous page
+  };
+
   return (
     <div className="single">
       <Sidebar />
       <div className="singleContainer">
         <Navbar />
+
         <div className="top">
+          <button className="backButton" onClick={goBack}>
+            Go Back
+          </button>
           <div className="left">
             <div className="editButton">Edit</div>
             <h1 className="title">Information</h1>
             {userData && ( // Check if userData is available before rendering
               <div className="item">
-                <img src={userData.img ? userData.img : profileIcon} alt="" className="itemImg" />
+                <img
+                  src={userData.img ? userData.img : profileIcon}
+                  alt=""
+                  className="itemImg"
+                />
                 <div className="details">
                   <h1 className="itemTitle">{userData.displayName}</h1>
                   <div className="detailItem">
@@ -63,13 +76,6 @@ const Single = () => {
               </div>
             )}
           </div>
-          <div className="right">
-            <Chart aspect={2 / 1} title="User Spending ( Last 6 Months)" />
-          </div>
-        </div>
-        <div className="bottom">
-          <h1 className="title">Last Transactions</h1>
-          <List />
         </div>
       </div>
     </div>

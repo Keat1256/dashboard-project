@@ -10,6 +10,19 @@
             display: flex;
             gap: 20px;
 
+            .backButton {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #0069d9;
+                }
+            }
+
             .left {
                 flex: 1;
                 -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
