@@ -38,7 +38,17 @@ export const userInputs = [
     id: "country",
     label: "Country",
     type: "text",
-    placeholder: "USA",
+  },
+  {
+    id: "role",
+    label: "Role",
+    type: "select",
+    options: [
+      { text: "Super Admin", value: "super_admin" },
+      { text: "Admin", value: "admin" },
+      { text: "User", value: "user" },
+    ],
+    placeholder: "Select Role",
   },
 ];
 
@@ -66,6 +76,7 @@ export const userUpdate = [
   {
     id: "password",
     label: "Password",
+    type: "password",
   },
   {
     id: "address",
@@ -77,6 +88,17 @@ export const userUpdate = [
     label: "Country",
     type: "text",
   },
+  {
+    id: "role",
+    label: "Role",
+    type: "select",
+    options: [
+      { text: "Super Admin", value: "super_admin" },
+      { text: "Admin", value: "admin" },
+      { text: "User", value: "user" },
+    ],
+    placeholder: "Select Role",
+  },
 ];
 
 export const productInputs = [
@@ -87,27 +109,46 @@ export const productInputs = [
     placeholder: "Apple Macbook Pro",
   },
   {
-    id: "description",
+    id: "desc",
     label: "Description",
     type: "text",
     placeholder: "Description",
   },
   {
-    id: "category",
-    label: "Category",
-    type: "text",
-    placeholder: "Computers",
+    id: "wh1qty",
+    label: "Warehouse 1 Unit",
+    type: "number",
+    placeholder: "0",
+  },
+  {
+    id: "wh2qty",
+    label: "Warehouse 2 Unit",
+    type: "number",
+    placeholder: "0",
+  },
+  {
+    id: "wh3qty",
+    label: "Warehouse 3 Unit",
+    type: "number",
+    placeholder: "0",
   },
   {
     id: "price",
     label: "Price",
-    type: "text",
-    placeholder: "100",
+    type: "number", // Change to "number"
+    placeholder: "0", // You can change the placeholder if needed
   },
   {
-    id: "stock",
-    label: "Stock",
-    type: "text",
-    placeholder: "in stock",
+    id: "status",
+    label: "Status",
+    type: "select",
+    options: ["Active", "Disabled"],
+    placeholder: "Select Status",
   },
+];
+
+export const productUpdate = [
+  {
+
+  }
 ];
