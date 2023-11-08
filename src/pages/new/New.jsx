@@ -4,8 +4,6 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import {
-  addDoc,
-  collection,
   doc,
   serverTimestamp,
   setDoc,
@@ -123,12 +121,29 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input
-                    id={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    onChange={handleInput}
-                  />
+                  {input.type === "select" ? (
+                    <select
+                      id={input.id}
+                      onChange={handleInput}
+                      defaultValue="" // Set a default value (empty option) to force the user to choose
+                    >
+                      <option value="" disabled>
+                        Select {input.label}
+                      </option>
+                      {input.options.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      id={input.id}
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      onChange={handleInput}
+                    />
+                  )}
                 </div>
               ))}
               <button disabled={per !== null && per < 100} type="submit">
