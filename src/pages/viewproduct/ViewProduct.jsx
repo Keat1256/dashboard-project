@@ -10,24 +10,24 @@ import { doc, getDoc } from "firebase/firestore";
 import profileIcon from "../../images/pfpicon.png";
 
 const Single = () => {
-   const { userId } = useParams();
+  const { productId } = useParams();
 
-   const [userData, setUserData] = useState(null);
+  const [productData, setProductData] = useState(null);
 
-   useEffect(() => {
-     const fetchUserData = async () => {
-       const docRef = doc(db, "users", userId);
-       const docSnap = await getDoc(docRef);
-       if (docSnap.exists()) {
-         const userData = docSnap.data();
-         setUserData(userData); // Store the fetched data in state
-       } else {
-         // Handle the case where the document doesn't exist
-       }
-     };
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     const docRef = doc(db, "products", productId);
+  //     const docSnap = await getDoc(docRef);
+  //     if (docSnap.exists()) {
+  //       const productData = docSnap.data();
+  //       setProductData(productData); // Store the fetched data in state
+  //     } else {
+  //       // Handle the case where the document doesn't exist
+  //     }
+  //   };
 
-     fetchUserData();
-   }, [userId]);
+  //   fetchUserData();
+  // });
 
   return (
     <div className="single">
@@ -38,26 +38,30 @@ const Single = () => {
           <div className="left">
             <div className="editButton">Edit</div>
             <h1 className="title">Information</h1>
-            {userData && ( // Check if userData is available before rendering
+            {productData && ( // Check if userData is available before rendering
               <div className="item">
-                <img src={userData.img ? userData.img : profileIcon} alt="" className="itemImg" />
+                <img
+                  src={productData.img ? productData.img : profileIcon}
+                  alt=""
+                  className="itemImg"
+                />
                 <div className="details">
-                  <h1 className="itemTitle">{userData.displayName}</h1>
+                  <h1 className="itemTitle">{productData.displayName}</h1>
                   <div className="detailItem">
-                    <span className="itemKey">Email:</span>
-                    <span className="itemValue">{userData.email}</span>
+                    <span className="itemKey">Title:</span>
+                    <span className="itemValue">{productData.title}</span>
                   </div>
                   <div className="detailItem">
-                    <span className="itemKey">Phone:</span>
-                    <span className="itemValue">{userData.phone}</span>
+                    <span className="itemKey">Price:</span>
+                    <span className="itemValue">{productData.price}</span>
                   </div>
                   <div className="detailItem">
-                    <span className="itemKey">Address:</span>
-                    <span className="itemValue">{userData.address}</span>
+                    <span className="itemKey">Total Quantity:</span>
+                    <span className="itemValue">{productData.quantity}</span>
                   </div>
                   <div className="detailItem">
-                    <span className="itemKey">Country:</span>
-                    <span className="itemValue">{userData.country}</span>
+                    <span className="itemKey">Status:</span>
+                    <span className="itemValue">{productData.status}</span>
                   </div>
                 </div>
               </div>

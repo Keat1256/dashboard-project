@@ -1,18 +1,17 @@
-import "./datatable.scss";
+import "./ordertable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatablesource";
+import { orderColumns } from "../../datatablesource";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 
-const DataTable = () => {
+const OrderTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     // LISTEN (REALTIME)
     const unsub = onSnapshot(
-      collection(db, "users"),
+      collection(db, "orders"),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
@@ -32,7 +31,7 @@ const DataTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, "users", id));
+      await deleteDoc(doc(db, "orders", id));
       setData(data.filter((item) => item.id !== id));
     } catch (err) {
       console.log(err);
@@ -47,41 +46,44 @@ const DataTable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link
-              to={`/users/${params.row.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <div className="viewButton">View</div>
-            </Link>
+            {/* <Link to="/users/test" style={{ textDecoration: "none" }}> */}
+            {/* </Link> */}
+            <div className="viewButton">View</div>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
               Delete
             </div>
-            <Link
-              to={`/users/edit/${params.row.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <div className="editButton">Edit</div>
-            </Link>
+            <div className="editButton">Edit</div>
           </div>
         );
       },
     },
   ];
+
+  const customOrderColumns = orderColumns.map((column) => {
+    if (column.field === "title" || column.field === "qty") {
+      return {
+        ...column,
+        valueGetter: (params) => {
+          if (params.row.products && Array.isArray(params.row.products)) {
+            return params.row.products.map((product) => product[column.field]);
+          }
+          return ""; // Return an empty string if "products" is not defined or not an array
+        },
+      };
+    }
+    return column;
+  });
+
   return (
     <div className="datatable">
-      <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
-      </div>
+      <div className="tableTitle">Order List</div>
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={userColumns.concat(actionColumn)}
+        columns={customOrderColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
@@ -90,4 +92,4 @@ const DataTable = () => {
   );
 };
 
-export default DataTable;
+export default OrderTable;
