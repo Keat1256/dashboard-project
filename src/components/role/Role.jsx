@@ -1,15 +1,16 @@
 import React from "react";
+import Unauthorized from "../../pages/unauthorized/Unauth";
 
-function RoleAuth({ userRole, allowedRole, children }) {
-  console.log("userRole:", userRole);
-  console.log("allowedRole:", allowedRole);
+function RoleAuth({ userRole, allowedRoles, children }) {
+  // console.log("userRole:", userRole);
+  // console.log("allowedRoles:", allowedRoles);
 
-  // Check if the userRole matches the allowedRole
-  if (userRole === allowedRole) {
-    return children; // Render the children if the roles match
+  // Check if the userRole matches any of the allowedRoles
+  if (allowedRoles.includes(userRole)) {
+    return children; // Render the children if the user's role matches any of the allowed roles
   } else {
-    // You can customize this part to handle unauthorized access
-    return <div>Unauthorized Access</div>;
+    // toast.error("You are not authorized to access this page.", {});
+    return <Unauthorized />;
   }
 }
 
