@@ -1,6 +1,6 @@
 import "./ordertable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { productColumns } from "../../datatablesource";
+import { orderColumns } from "../../datatablesource";
 import { useEffect, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -61,18 +61,29 @@ const OrderTable = () => {
       },
     },
   ];
+
+  const customOrderColumns = orderColumns.map((column) => {
+    if (column.field === "title" || column.field === "qty") {
+      return {
+        ...column,
+        valueGetter: (params) => {
+          if (params.row.products && Array.isArray(params.row.products)) {
+            return params.row.products.map((product) => product[column.field]);
+          }
+          return ""; // Return an empty string if "products" is not defined or not an array
+        },
+      };
+    }
+    return column;
+  });
+
   return (
     <div className="datatable">
-      <div className="tableTitle">
-        Add New User
-        {/* <Link to="/users/new" className="link">
-          Add New
-        </Link> */}
-      </div>
+      <div className="tableTitle">Order List</div>
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={productColumns.concat(actionColumn)}
+        columns={customOrderColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection

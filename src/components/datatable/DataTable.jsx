@@ -59,6 +59,12 @@ const DataTable = () => {
             >
               Delete
             </div>
+            <Link
+              to={`/users/edit/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="editButton">Edit</div>
+            </Link>
           </div>
         );
       },
@@ -68,9 +74,9 @@ const DataTable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         Add New User
-        {/* <Link to="/users/new" className="link">
+        <Link to="/users/new" className="link">
           Add New
-        </Link> */}
+        </Link>
       </div>
       <DataGrid
         className="datagrid"
