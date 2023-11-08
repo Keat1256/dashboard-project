@@ -142,13 +142,79 @@ export const productInputs = [
     id: "status",
     label: "Status",
     type: "select",
-    options: ["Active", "Disabled"],
+    options: [
+      { text: "Active", value: "active" },
+      { text: "Disabled", value: "disabled" },
+    ],
     placeholder: "Select Status",
   },
 ];
 
 export const productUpdate = [
   {
-
-  }
+    id: "title",
+    label: "Title",
+    type: "text",
+  },
+  {
+    id: "desc",
+    label: "Description",
+    type: "text",
+  },
+  {
+    id: "wh1qty",
+    label: "Warehouse 1 Unit",
+    type: "number",
+  },
+  {
+    id: "wh2qty",
+    label: "Warehouse 2 Unit",
+    type: "number",
+  },
+  {
+    id: "wh3qty",
+    label: "Warehouse 3 Unit",
+    type: "number",
+  },
+  {
+    id: "price",
+    label: "Price",
+    type: "number",
+  },
+  {
+    id: "status",
+    label: "Status",
+    type: "select",
+    options: [
+      { text: "Active", value: "active" },
+      { text: "Disabled", value: "disabled" },
+    ],
+  },
 ];
+
+export const orderUpdate = [
+  {
+    id: "userId",
+    label: "Customer ID",
+    readOnly: true, // added readOnly property
+  },
+  {
+    id: "status",
+    label: "Status",
+    type: "select",
+    options: [
+      { text: "Processing", value: "processing" },
+      { text: "Shipped", value: "shipped" },
+      { text: "Delivered", value: "delivered" },
+    ],
+  },
+  {
+    id: "selectedWarehouse",
+    label: "Warehouse Selected",
+  },
+  {
+    id: "totalPrice",
+    label: "Total Paid",
+    readOnly: true,
+  }
+]
