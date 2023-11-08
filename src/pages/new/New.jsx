@@ -3,15 +3,12 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
-import {
-  doc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db, storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
@@ -58,8 +55,6 @@ const New = ({ inputs, title }) => {
     file && uploadFile();
   }, [file]);
 
-  console.log(data);
-
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
@@ -69,19 +64,34 @@ const New = ({ inputs, title }) => {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    try {
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      await setDoc(doc(db, "users", res.user.uid), {
-        ...data,
-        timeStamp: serverTimestamp(),
-      });
-      navigate(-1);
-    } catch (err) {
-      console.log(err);
+    let isEmptyField = false; // Flag to check if any field is empty
+
+    for (const input of inputs) {
+      const key = input.id;
+      if (!data[key]) {
+        isEmptyField = true;
+        break;
+      }
+    }
+
+    if (isEmptyField) {
+      // Display a toast message
+      toast.error("Please fill in all fields");
+    } else {
+      try {
+        const res = await createUserWithEmailAndPassword(
+          auth,
+          data.email,
+          data.password
+        );
+        await setDoc(doc(db, "users", res.user.uid), {
+          ...data,
+          timeStamp: serverTimestamp(),
+        });
+        navigate(-1);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -123,25 +133,28 @@ const New = ({ inputs, title }) => {
                   <label>{input.label}</label>
                   {input.type === "select" ? (
                     <select
+                      className="formInput"
                       id={input.id}
                       onChange={handleInput}
-                      defaultValue="" // Set a default value (empty option) to force the user to choose
+                      value={data[input.id]} // Use 'value' to set the selected option
                     >
                       <option value="" disabled>
                         Select {input.label}
                       </option>
                       {input.options.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
+                        <option key={index} value={option.value}>
+                          {option.text}
                         </option>
                       ))}
                     </select>
                   ) : (
                     <input
+                      className="formInput"
                       id={input.id}
                       type={input.type}
                       placeholder={input.placeholder}
                       onChange={handleInput}
+                      value={data[input.id]} // Use 'value' to set the input value
                     />
                   )}
                 </div>
