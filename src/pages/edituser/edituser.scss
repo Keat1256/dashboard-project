@@ -4,6 +4,7 @@
 
     .newContainer {
         flex: 6;
+        position: relative;
 
         .top,
         .bottom {
@@ -78,5 +79,22 @@
                 }
             }
         }
+
+                .goBack {
+                    background-color: #007bff;
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    border: none;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 25px;
+                    top: 75px;
+                        /* Adjust this value as needed */
+
+                    &:hover {
+                        background-color: #0069d9;
+                    }
+                }
     }
 }
