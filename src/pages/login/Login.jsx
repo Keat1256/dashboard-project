@@ -1,33 +1,42 @@
-import { useContext, useState } from "react";
-import "./login.scss";
-import logoImage from "../../images/logo.png";
+import React, { useContext, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
+import logoImage from "../../images/logo.png";
+import "./login.scss";
 
 const Login = () => {
-  const [error, setError] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const navitage = useNavigate();
-
+  const navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        dispatch({ type: "LOGIN", payload: user });
-        navitage("/");
-      })
-      .catch((error) => {
-        setError(true);
-      });
+    const { email, password } = formData;
+
+    if (!email || !password) {
+      toast.error("Please fill in both fields!", { position: "top-center" });
+      return;
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      dispatch({ type: "LOGIN", payload: user });
+      navigate("/");
+    } catch (error) {
+      setError("Wrong email or password!");
+      toast.error("Wrong email or password!", { position: "top-center" });
+    }
   };
 
   return (
@@ -38,16 +47,24 @@ const Login = () => {
         <form onSubmit={handleLogin}>
           <input
             type="email"
-            placeholder="email"
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
           />
           <input
             type="password"
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
           />
-          <button type="submit">Login</button>
-          {error && <span>Wrong email or password!</span>}
+          <button type="submit" disabled={error !== ""}>
+            Login
+          </button>
+          {error && <span>{error}</span>}
         </form>
       </div>
     </div>

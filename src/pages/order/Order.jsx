@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import OrderTable from "../../components/datatable/OrderTable";
 
-const order = () => {
+const Order = () => {
   return (
     <div>
       <h1 className="order">
@@ -17,4 +17,4 @@ const order = () => {
   );
 };
 
-export default order;
+export default Order;

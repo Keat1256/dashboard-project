@@ -11,14 +11,16 @@ import Unauthorized from './pages/unauthorized/Unauth';
 import { db } from './firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { productInputs } from './formSource';
+import { productInputs, userInputs, userUpdate } from "./formSource";
 import RoleAuth from './components/role/Role';
 import List from './pages/list/List';
 import Home from './pages/home/Home';
 import Single from './pages/single/Single';
 import New from './pages/new/New';
+import EditUser from './pages/edituser/EditUser';
 import Login from './pages/login/Login';
 import Order from './pages/order/Order';
+import Product from './pages/product/Product';
 import './style/dark.scss';
 
 function App() {
@@ -78,20 +80,36 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route index element={
               <RequireAuth>
+                <RoleAuth userRole={userRole} allowedRoles={["super_admin", "admin"]}>
                 <Home />
+                </RoleAuth>
               </RequireAuth>
             } />
             <Route path="users">
               <Route index element={
-                <RoleAuth userRole={userRole} allowedRole="super_admin">
+                <RoleAuth userRole={userRole} allowedRoles="super_admin">
                   <List />
                 </RoleAuth>
-                // <List />
               } />
               <Route path=":userId" element={
                 <Single />
               } />
-              <Route path="new" element={<New />} />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <New inputs={userInputs} title="Create New User" />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="edit/:userId"
+                element={
+                  <RequireAuth>
+                    <EditUser inputs={userUpdate} title="Update User"/>
+                  </RequireAuth>
+                }
+              />
             </Route>
             <Route
               path=":userId"
@@ -103,16 +121,7 @@ function App() {
               }
             />
             <Route path="products">
-              <Route index element={<List />} />
-              <Route path=":productId" element={<Single />} />
-              <Route
-                path=":newproducts"
-                element={
-                  <RequireAuth>
-                    <New inputs={productInputs} title="Add New Product" />
-                  </RequireAuth>
-                }
-              />
+              <Route index element={<Product />} />
             </Route>
             <Route path="orders">
               <Route index element={<Order />} />
@@ -128,4 +137,3 @@ function App() {
 }
 
 export default App;
-
