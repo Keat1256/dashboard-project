@@ -25,10 +25,31 @@ export const userColumns = [
     // Add other columns with adjusted widths
     {
         field: "username",
-        headerName: "User Name",
+        headerName: "Username",
         width: 200,
-
-
+    },
+    {
+        field: "role",
+        headerName: "Role",
+        width: 150,
+        renderCell: (params) => {
+            let label = "";
+            switch (params.value) {
+                case "super_admin":
+                    label = "Super Admin";
+                    break;
+                case "admin":
+                    label = "Admin";
+                    break;
+                case "user":
+                    label = "User";
+                    break;
+                default:
+                    label = params.value;
+                    break;
+            }
+            return <div>{label}</div>;
+        },
     },
     {
         field: "email",
@@ -38,7 +59,7 @@ export const userColumns = [
     {
         field: "displayName",
         headerName: "Full Name",
-        width: 100,
+        width: 200,
     },
     {
         field: "address",
@@ -138,7 +159,7 @@ export const orderColumns = [
     {
         field: "userId",
         headerName: "Customer ID",
-        width: 100,
+        width: 150,
     },
     {
         field: "timeStamp",
