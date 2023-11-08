@@ -6,6 +6,23 @@
         flex: 6;
         position: relative;
 
+        .goBack {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+                position: absolute;
+                right: 25px;
+                top: 55px;
+                /* Adjust this value as needed */
+
+                &:hover {
+                    background-color: #0069d9;
+                }
+            }
+
         .top,
         .bottom {
             -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
@@ -59,6 +76,17 @@
                             border: none;
                             border-bottom: 1px solid gray;
                         }
+
+                        .select {
+                            // Your styles for the select input go here
+                            width: 100%;
+                            padding: 5px;
+                            border-bottom: 1px solid gray;
+                            background-color: #ffffff;
+                            /* Dark background color */
+                            color: #000000;
+                            /* White text color */
+                        }
                     }
 
                     button {
@@ -79,22 +107,5 @@
                 }
             }
         }
-
-                .goBack {
-                    background-color: #007bff;
-                    color: white;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    border: none;
-                    cursor: pointer;
-                    position: absolute;
-                    right: 25px;
-                    top: 75px;
-                        /* Adjust this value as needed */
-
-                    &:hover {
-                        background-color: #0069d9;
-                    }
-                }
     }
 }

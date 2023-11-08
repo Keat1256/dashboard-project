@@ -103,7 +103,7 @@ const EditUser = ({ title }) => {
                   <label>{input.label}</label>
                   {input.type === "select" ? (
                     <select
-                      className="formInput"
+                      className="select"
                       id={input.id}
                       onChange={handleInput}
                       value={
