@@ -142,12 +142,9 @@ export const productInputs = [
     id: "status",
     label: "Status",
     type: "select",
-    options: [
-      { text: "Active", value: "active" },
-      { text: "Disabled", value: "disabled" },
-    ],
+    options: ["Active", "Disabled"], // Provide an array of values
     placeholder: "Select Status",
-  },
+  }
 ];
 
 export const productUpdate = [
